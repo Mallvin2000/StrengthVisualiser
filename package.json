@@ -1,0 +1,19 @@
+{
+  "name": "strengthvisualiser",
+  "version": "1.0.0",
+  "description": "Store strength/lifting data and retrieve and plot them on a graph",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mallvin2000/StrengthVisualiser.git"
+  },
+  "author": "Mallvin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mallvin2000/StrengthVisualiser/issues"
+  },
+  "homepage": "https://github.com/Mallvin2000/StrengthVisualiser#readme"
+}
