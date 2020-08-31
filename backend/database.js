@@ -1,5 +1,6 @@
 const { Client } = require('pg');
 const connectionString = "postgres://utaaqrdi:Gk1V4NlYgHcNlP4RIa0Qqty-YU558CQY@john.db.elephantsql.com:5432/utaaqrdi";
+var jwt = require("jsonwebtoken");
 
 function connect() {
     const client = new Client({
