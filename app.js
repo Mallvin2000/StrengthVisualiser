@@ -90,7 +90,7 @@ app.post('/login', (req, res) => {
 
 
 
-app.post('/insert/squat-log', (req, res) => {
+app.post('/insert/squat-log', verifyToken, (req, res) => {
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
@@ -124,7 +124,7 @@ app.post('/insert/squat-log', (req, res) => {
 
 
 
-app.post('/insert/bench-log', (req, res) => {
+app.post('/insert/bench-log', verifyToken, (req, res) => {
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
@@ -143,7 +143,7 @@ app.post('/insert/bench-log', (req, res) => {
 
 
 
-app.post('/insert/deadlift-log', (req, res) => {
+app.post('/insert/deadlift-log', verifyToken, (req, res) => {
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
