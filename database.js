@@ -38,9 +38,10 @@ function resetTable() {
             weight INT NOT NULL,
             year varchar(4) NOT NULL,
             month varchar(2) NOT NULL,
+            timestamp timestamptz default current_timestamp,
             userId INT REFERENCES users (userId)
         );
-    `;
+    `;//delete timestamp column if error when recreating
 
     const query3 = `
         CREATE TABLE bench (
@@ -154,10 +155,52 @@ function addDeadliftLog(weight, year, month, userId, callback) {
 
 
 
+function login(username, password, callback) {
+    //console.log("In here man");
+    const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}';`
+    //console.log(query);
+
+    const client = connect();
+    client.query(query, [], (err, {rows}) => {
+        console.log(rows);
+        if (rows.length == 1) {//username and password combination exists
+            var token = "";
+            //console.log(rows[0].userid);
+            token = jwt.sign({ "userid": rows[0].userid }, "123", { expiresIn: "1hr" })//payload is an encrypted message hidden in the token(in this case the username), a secret key to encrypt and decrypt this token, options
+            console.log(token);
+            callback(null, { "token": token });
+        } else {
+            callback({ "auth": false, "message": "username/password not found" }, null);
+        }
+        //callback(err, rows)
+        client.end();
+    });
+}
+
+
+function checkForDuplicateUsername(username, callback) {
+        
+        const query = `SELECT * FROM users WHERE username = $1`;
+        const client = connect();
+        client.query(query, [username], (err, { rows }) => {
+            //console.log(rows.length);
+            /*if (rows.length > 0) {
+               // count++;
+                //console.log("Duplicates: "+count);
+            }*/
+            callback(err, rows.length);
+            client.end();
+        });
+}
+
+
+
 module.exports = {
     resetTable,
     addUser,
     addSquatLog,
     addBenchLog,
     addDeadliftLog,
+    login,
+    checkForDuplicateUsername,
 };
