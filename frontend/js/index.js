@@ -20,6 +20,7 @@ function sendDataToBackend(event) {
         $.ajax(settings).done(function (response) {
             console.log(response);
             alert("Update Successful");
+            window.location.href = "login.html";
         });
 }
 

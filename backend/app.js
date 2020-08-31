@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const database = require("./database");
 const cors = require('cors');
+var verifyToken = require("./Auth/verifyToken");
 var app = express();
 
 app.use(cors());
@@ -45,20 +46,51 @@ app.post('/insert/user', (req, res) => {
   var age = req.body.age;
   var weightClass = req.body.weightClass;
 
-  database.addUser(username, password, age, weightClass, (err, result) => {
+  database.checkForDuplicateUsername(username, (err, result) => {
     if (err) {
-      res.status(500).send({ "Error": err.detail });
-      
+      res.status(500).send({ "Error": err });
+    } else if (result > 0) {
+      res.status(400).json({
+        "error": "Duplicate Entry, Username exists",
+        "code": "400"
+      })
     } else {
-      res.json({result:"Successfully Created New User"});
+      database.addUser(username, password, age, weightClass, (err, result) => {
+        if (err) {
+          res.status(500).send({ "Error": err.detail });
+
+        } else {
+          res.json({ result: "Successfully Created New User" });
+        }
+      });
     }
   });
-
-  
 });
 
 
-app.post('/insert/squat-log', (req,res) => {
+app.post('/login', (req, res) => {
+  //console.log("login received");
+  var username = req.body.username;
+  var password = req.body.password;
+  console.log(username, password);
+
+  database.login(username, password, (error, result) => {
+    if (error) {
+      res.status(500).send({ "Error": error.detail });
+
+    } else {
+      res.json(result);
+    }
+    //console.log(result);
+
+  });
+});
+
+
+
+
+
+app.post('/insert/squat-log', (req, res) => {
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
@@ -67,9 +99,9 @@ app.post('/insert/squat-log', (req,res) => {
   database.addSquatLog(weight, year, month, userId, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
-      
+
     } else {
-      res.json({result:"Successfully added new squat log"});
+      res.json({ result: "Successfully added new squat log" });
     }
   });
 });
@@ -92,7 +124,7 @@ app.post('/insert/squat-log', (req,res) => {
 
 
 
-app.post('/insert/bench-log', (req,res) => {
+app.post('/insert/bench-log', (req, res) => {
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
@@ -101,9 +133,9 @@ app.post('/insert/bench-log', (req,res) => {
   database.addBenchLog(weight, year, month, userId, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
-      
+
     } else {
-      res.json({result:"Successfully added new bench log"});
+      res.json({ result: "Successfully added new bench log" });
     }
   });
 });
@@ -111,7 +143,7 @@ app.post('/insert/bench-log', (req,res) => {
 
 
 
-app.post('/insert/deadlift-log', (req,res) => {
+app.post('/insert/deadlift-log', (req, res) => {
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
@@ -120,9 +152,9 @@ app.post('/insert/deadlift-log', (req,res) => {
   database.addDeadliftLog(weight, year, month, userId, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
-      
+
     } else {
-      res.json({result:"Successfully added new deadlift log"});
+      res.json({ result: "Successfully added new deadlift log" });
     }
   });
 });
@@ -132,12 +164,12 @@ app.post('/insert/deadlift-log', (req,res) => {
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
