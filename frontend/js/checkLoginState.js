@@ -20,8 +20,8 @@ function showLoggedInNavBar() {
         <div class="nav-list collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="visualiser-noAccount.html">Visualiser</a></li>
-                <li class="nav-item"><a class="nav-link" href="index.html">Insert record</a></li>
+                <li class="nav-item"><a class="nav-link" href="visualiser.html">Visualiser</a></li>
+                <li class="nav-item"><a class="nav-link" href="insert.html">Insert record</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.html">Logout</a></li>
                 
             </ul>
@@ -44,7 +44,7 @@ function showNotLoggedInNavBar() {
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="visualiser-noAccount.html">Visualiser</a></li>
-                <li class="nav-item"><a class="nav-link" href="index.html">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="createAccount.html">Create Account</a></li>
             </ul>
         </div>
