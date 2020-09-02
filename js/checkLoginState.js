@@ -22,6 +22,7 @@ function showLoggedInNavBar() {
                 <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="visualiser.html">Visualiser</a></li>
                 <li class="nav-item"><a class="nav-link" href="insert.html">Insert record</a></li>
+                <li class="nav-item"><a class="nav-link" href="profile.html">My Profile</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.html">Logout</a></li>
                 
             </ul>

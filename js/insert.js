@@ -1,6 +1,8 @@
 function loadSquat() {
     deactiveNavActive();
-    $('#squat-link').css({'color': '#495057', 'background-color': '#fff', 'border-color': '#dee2e6 #dee2e6 #fff'});
+
+    $('#squat-link').css({ 'color': '#495057', 'background-color': '#fff', 'border-color': '#dee2e6 #dee2e6 #fff' });
+
     var html = `
     <form id="squat-log-form" method="POST">
     <div class="form-row">
@@ -42,14 +44,15 @@ function loadSquat() {
     `;
     $('#input-container').empty();
     $('#input-container').html(html);
-    
+    registerSquatLogForm();
+
 }
 
 function loadBench() {
     deactiveNavActive();
-    $('#bench-link').css({'color': '#495057', 'background-color': '#fff', 'border-color': '#dee2e6 #dee2e6 #fff'});
+    $('#bench-link').css({ 'color': '#495057', 'background-color': '#fff', 'border-color': '#dee2e6 #dee2e6 #fff' });
     var html = `
-    <form id="squat-log-form" method="POST">
+    <form id="bench-log-form" method="POST">
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="txt_weight">Weight (KG) :</label>
@@ -89,15 +92,18 @@ function loadBench() {
     `;
     $('#input-container').empty();
     $('#input-container').html(html);
-    
+    registerBenchLogForm();
+
 }
 
 
 function loadDeadlift() {
     deactiveNavActive();
-    $('#deadlift-link').css({'color': '#495057', 'background-color': '#fff', 'border-color': '#dee2e6 #dee2e6 #fff'});
+
+    $('#deadlift-link').css({ 'color': '#495057', 'background-color': '#fff', 'border-color': '#dee2e6 #dee2e6 #fff' });
+
     var html = `
-    <form id="squat-log-form" method="POST">
+    <form id="deadlift-log-form" method="POST">
     <div class="form-row">
         <div class="form-group col-md-3">
             <label for="txt_weight">Weight (KG) :</label>
@@ -137,13 +143,14 @@ function loadDeadlift() {
     `;
     $('#input-container').empty();
     $('#input-container').html(html);
-    
+    registerDeadliftLogForm();
+
 }
 
 function deactiveNavActive() {
-    $('#squat-link').css({'color': '', 'background-color': '', 'border-color': ''});
-    $('#bench-link').css({'color': '', 'background-color': '', 'border-color': ''});
-    $('#deadlift-link').css({'color': '', 'background-color': '', 'border-color': ''});
+    $('#squat-link').css({ 'color': '', 'background-color': '', 'border-color': '' });
+    $('#bench-link').css({ 'color': '', 'background-color': '', 'border-color': '' });
+    $('#deadlift-link').css({ 'color': '', 'background-color': '', 'border-color': '' });
 }
 
 
@@ -159,19 +166,115 @@ function registerBenchLink() {
 function registerDeadliftLink() {
     $('#deadlift-link').click(loadDeadlift);
 }
-  
+
+
+
+
+function sendDataToBackendSquat(event) {
+    event.preventDefault();
+
+    var settings = {
+        "url": "http://localhost:3000/insert/squat-log",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Bearer " + localStorage["token"]
+        },
+        "data": {
+            "weight": $("#txt_weight").val(),
+            "year": $("#txt_year").val(),
+            "month": $("#month-select option:selected").val()
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        alert("Logged sucessfully")
+    })
+        .fail((response) => {
+            alert("ERROR");
+        });
+}
+
+function sendDataToBackendBench(event) {
+    event.preventDefault();
+
+    var settings = {
+        "url": "http://localhost:3000/insert/bench-log",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Bearer " + localStorage["token"]
+        },
+        "data": {
+            "weight": $("#txt_weight").val(),
+            "year": $("#txt_year").val(),
+            "month": $("#month-select option:selected").val()
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        alert("Logged sucessfully")
+    })
+        .fail((response) => {
+            alert("ERROR");
+        });
+}
+
+
+function sendDataToBackendDeadlift(event) {
+    event.preventDefault();
+
+    var settings = {
+        "url": "http://localhost:3000/insert/deadlift-log",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Bearer " + localStorage["token"]
+        },
+        "data": {
+            "weight": $("#txt_weight").val(),
+            "year": $("#txt_year").val(),
+            "month": $("#month-select option:selected").val()
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        alert("Logged sucessfully")
+    })
+        .fail((response) => {
+            alert("ERROR");
+        });
+}
+
 
 function registerSquatLogForm() {
+    $('#squat-log-form').submit(sendDataToBackendSquat);
+}
 
+
+function registerBenchLogForm() {
+    $('#bench-log-form').submit(sendDataToBackendBench);
+}
+
+function registerDeadliftLogForm() {
+    $('#deadlift-log-form').submit(sendDataToBackendDeadlift);
 }
 
 
 
 $(document).ready(function () {//run when document is populated
-     //document.getElementById("defaultOpen").click();
+    //document.getElementById("defaultOpen").click();
     loadSquat();//load as defualt
     registerSquatLink();
     registerBenchLink();
     registerDeadliftLink();
-
+    
+    
+   
 });
