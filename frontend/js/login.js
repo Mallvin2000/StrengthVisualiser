@@ -18,7 +18,7 @@ function sendDataToBackend(event) {
         console.log(response);
         console.log(response.token);//extracting only the string of the token
         localStorage["token"] = response.token;//store token value into the browsers cookies/storage
-        window.location.href = "visualiser-noAccount.html";//transfer user by adding it to the url bar. changes the url and takes us to that page
+        window.location.href = "index.html";//transfer user by adding it to the url bar. changes the url and takes us to that page
     });
 }
 

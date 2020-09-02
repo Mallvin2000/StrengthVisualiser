@@ -91,12 +91,13 @@ app.post('/login', (req, res) => {
 
 
 app.post('/insert/squat-log', verifyToken, (req, res) => {
+  //console.log("Squat has received");
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
-  var userId = req.body.userId;
+  var userid = req.body.userid;
 
-  database.addSquatLog(weight, year, month, userId, (err, result) => {
+  database.addSquatLog(weight, year, month, userid, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
 
@@ -125,12 +126,13 @@ app.post('/insert/squat-log', verifyToken, (req, res) => {
 
 
 app.post('/insert/bench-log', verifyToken, (req, res) => {
+  //console.log("Bench received");
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
-  var userId = req.body.userId;
+  var userid = req.body.userid;
 
-  database.addBenchLog(weight, year, month, userId, (err, result) => {
+  database.addBenchLog(weight, year, month, userid, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
 
@@ -147,9 +149,9 @@ app.post('/insert/deadlift-log', verifyToken, (req, res) => {
   var weight = req.body.weight;
   var year = req.body.year;
   var month = req.body.month;
-  var userId = req.body.userId;
+  var userid = req.body.userid;
 
-  database.addDeadliftLog(weight, year, month, userId, (err, result) => {
+  database.addDeadliftLog(weight, year, month, userid, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
 
