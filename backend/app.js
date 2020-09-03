@@ -162,6 +162,40 @@ app.post('/insert/deadlift-log', verifyToken, (req, res) => {
 });
 
 
+app.get('/get/user/data', verifyToken, (req,res) => {
+  //console.log("received");
+  var userid = req.body.userid;//userid from verify token that is stored in request body
+
+  database.getUserData(userid, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+
+app.put("/update/user", verifyToken, (req, res) => {//qn4
+  var userid = req.body.userid;
+  var username = req.body.username;
+  var password = req.body.password;
+  //console.log(userid);
+  //console.log(username);
+  //console.log("Password: " + password);
+
+  database.updateUserProfile(username, password, userid, (err,result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Updated successfully"});
+    }
+  });
+  
+});
+
+
 
 
 

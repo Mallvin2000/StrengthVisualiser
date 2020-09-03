@@ -196,6 +196,29 @@ function checkForDuplicateUsername(username, callback) {
 
 
 
+function getUserData(userid, callback) {
+    const query = `SELECT * FROM users WHERE userId = $1;`
+    const client = connect();
+    client.query(query, [userid], (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+
+function updateUserProfile(username, password, userid, callback) {
+    const query = `UPDATE users SET username = $1, password = $2 WHERE userId = $3;`
+    const client = connect();
+    client.query(query, [username, password, userid], (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+    
+}
+
+
+
 module.exports = {
     resetTable,
     addUser,
@@ -204,4 +227,6 @@ module.exports = {
     addDeadliftLog,
     login,
     checkForDuplicateUsername,
+    getUserData,
+    updateUserProfile,
 };
