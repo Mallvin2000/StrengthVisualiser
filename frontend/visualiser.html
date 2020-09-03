@@ -17,6 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <link rel="stylesheet" href="css/visualier.css">
     <script src="js/checkLoginState.js"></script>
+    <script src="js/visualiser.js"></script>
 
 
 
@@ -38,30 +39,33 @@
         </nav>
     </header>
 
+    <div class="container-fluid">
+        <div class="inner-section">
+            <div class="user-inputs">
+                <form id="user-inputs-form" method="POST">
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="wc">Lift Type:</label>
+                            <select id="liftType-select" class="form-control">
+                                <option selected disabled>Choose the type of lift...</option>
+                                <option>Squat</option>
+                                <option>Bench</option>
+                                <option>Deadlift</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="new-log-button" type="submit" class="btn btn-primary">View</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+
     <div class="canvas-container">
         <canvas id="myChart" width="400" height="400"></canvas>
 
-
-        <script defer>
-            var testData = [{ weight: 120, year: "2019", month: "08" }]
-            //chart creation
-            const ctx = document.getElementById('myChart').getContext('2d');
-
-            const myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ["2018-08", "2019-07", "2020-09"],
-                    datasets: [{
-                        label: 'Squat weight progression',
-                        data: [90, 110, 120],
-                        fill: false,
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                }
-            });
-        </script>
 </body>
 
 </html>

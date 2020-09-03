@@ -218,6 +218,36 @@ function updateUserProfile(username, password, userid, callback) {
 }
 
 
+function getUserSquatData(userid, callback) {
+    const query = `SELECT * FROM squat WHERE userId = $1 ORDER BY year asc, month asc;`
+    const client = connect();
+    client.query(query, [userid], (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function getUserBenchData(userid, callback) {
+    const query = `SELECT * FROM bench WHERE userId = $1 ORDER BY year asc, month asc;`
+    const client = connect();
+    client.query(query, [userid], (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function getUserDeadliftData(userid, callback) {
+    const query = `SELECT * FROM deadlift WHERE userId = $1 ORDER BY year asc, month asc;`
+    const client = connect();
+    client.query(query, [userid], (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
 
 module.exports = {
     resetTable,
@@ -229,4 +259,7 @@ module.exports = {
     checkForDuplicateUsername,
     getUserData,
     updateUserProfile,
+    getUserSquatData,
+    getUserBenchData,
+    getUserDeadliftData,
 };
