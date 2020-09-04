@@ -218,30 +218,86 @@ function updateUserProfile(username, password, userid, callback) {
 }
 
 
-function getUserSquatData(userid, callback) {
-    const query = `SELECT * FROM squat WHERE userId = $1 ORDER BY year asc, month asc;`
+function getUserSquatData(userid, startYear, endYear, callback) {
+
+    let whereClause;
+    let i = 1;
+    const values = [userid];
+    whereClause = `WHERE userId = $${i++}`;
+    if (startYear && endYear) { //filtering required
+        startYear += "";
+        endYear += "";
+        //console.log(startYear);
+        values.push(startYear);
+        values.push(endYear);
+        whereClause += ` AND year BETWEEN $${i++} AND $${i++}`
+    } else if (startYear) {
+        startYear += "";
+        values.push(startYear);
+        whereClause += ` AND year = $${i++} `
+    }
+    //SELECT * FROM squat where userId = 2 AND year BETWEEN '2020' AND '2021' ORDER BY year asc, month asc;
+
+    const query = `SELECT * FROM squat ${whereClause} ORDER BY year asc, month asc;`
+    //console.log(query);
     const client = connect();
-    client.query(query, [userid], (err, { rows }) => {
+    client.query(query, values, (err, { rows }) => {
         callback(err, rows);
         client.end();
     });
 }
 
 
-function getUserBenchData(userid, callback) {
-    const query = `SELECT * FROM bench WHERE userId = $1 ORDER BY year asc, month asc;`
+function getUserBenchData(userid, startYear, endYear, callback) {
+
+    let whereClause;
+    let i = 1;
+    const values = [userid];
+    whereClause = `WHERE userId = $${i++}`;
+    if (startYear && endYear) { //filtering required
+        startYear += "";
+        endYear += "";
+        //console.log(startYear);
+        values.push(startYear);
+        values.push(endYear);
+        whereClause += ` AND year BETWEEN $${i++} AND $${i++}`
+    } else if (startYear) {
+        startYear += "";
+        values.push(startYear);
+        whereClause += ` AND year = $${i++} `
+    }
+
+    const query = `SELECT * FROM bench ${whereClause} ORDER BY year asc, month asc;`
     const client = connect();
-    client.query(query, [userid], (err, { rows }) => {
+    client.query(query, values, (err, { rows }) => {
         callback(err, rows);
         client.end();
     });
 }
 
 
-function getUserDeadliftData(userid, callback) {
-    const query = `SELECT * FROM deadlift WHERE userId = $1 ORDER BY year asc, month asc;`
+function getUserDeadliftData(userid, startYear, endYear, callback) {
+
+    let whereClause;
+    let i = 1;
+    const values = [userid];
+    whereClause = `WHERE userId = $${i++}`;
+    if (startYear && endYear) { //filtering required
+        startYear += "";
+        endYear += "";
+        //console.log(startYear);
+        values.push(startYear);
+        values.push(endYear);
+        whereClause += ` AND year BETWEEN $${i++} AND $${i++}`
+    } else if (startYear) {
+        startYear += "";
+        values.push(startYear);
+        whereClause += ` AND year = $${i++} `
+    }
+
+    const query = `SELECT * FROM deadlift ${whereClause} ORDER BY year asc, month asc;`
     const client = connect();
-    client.query(query, [userid], (err, { rows }) => {
+    client.query(query, values, (err, { rows }) => {
         callback(err, rows);
         client.end();
     });

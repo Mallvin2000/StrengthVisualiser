@@ -6,6 +6,7 @@ var logger = require('morgan');
 const database = require("./database");
 const cors = require('cors');
 var verifyToken = require("./Auth/verifyToken");
+const { start } = require('repl');
 var app = express();
 
 app.use(cors());
@@ -200,8 +201,9 @@ app.put("/update/user", verifyToken, (req, res) => {//qn4
 app.get('/get/squat', verifyToken, (req,res) => {
   //console.log("received");
   var userid = req.body.userid;//userid from verify token that is stored in request body
-
-  database.getUserSquatData(userid, (err, result) => {
+  const {startYear, endYear} = req.query;//extract from GET query URL
+  //console.log(startYear, endYear);
+  database.getUserSquatData(userid, startYear, endYear, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
@@ -214,8 +216,9 @@ app.get('/get/squat', verifyToken, (req,res) => {
 app.get('/get/bench', verifyToken, (req,res) => {
   //console.log("received");
   var userid = req.body.userid;//userid from verify token that is stored in request body
+  const {startYear, endYear} = req.query;
 
-  database.getUserBenchData(userid, (err, result) => {
+  database.getUserBenchData(userid, startYear, endYear, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
@@ -228,8 +231,8 @@ app.get('/get/bench', verifyToken, (req,res) => {
 app.get('/get/deadlift', verifyToken, (req,res) => {
   //console.log("received");
   var userid = req.body.userid;//userid from verify token that is stored in request body
-
-  database.getUserDeadliftData(userid, (err, result) => {
+  const {startYear, endYear} = req.query;
+  database.getUserDeadliftData(userid, startYear, endYear, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
