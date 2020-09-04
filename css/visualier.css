@@ -3,3 +3,12 @@
     height: 250px;
     /*margin: 2% auto 0 auto;*/
 }
+
+
+.radio-container {
+    margin-bottom: 2%;
+}
+
+#filter-inputs {
+    margin-top: 1%;
+}
