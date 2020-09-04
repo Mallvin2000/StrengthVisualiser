@@ -5,3 +5,25 @@
 .what-is-strength-visualiser {
     margin-bottom: 3%;
 }
+
+.difference-columns {
+ margin-top: 4%;
+}
+
+.contents {
+    /*border: 1px solid black;*/
+    padding: 0 30px;
+}
+
+.with-account {
+    border: 1px solid black;
+    color: white;
+    background-color: green;
+}
+
+
+.without-account {
+    border: 1px solid black;
+    color: white;
+    background-color: red;
+}

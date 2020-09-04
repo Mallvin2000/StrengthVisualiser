@@ -254,16 +254,16 @@ function sendDataToBackendDeadlift(event) {
 
 
 function registerSquatLogForm() {
-    $('#squat-log-form').submit(sendDataToBackendSquat);
+    $('#squat-log-form').submit(sendDataToBackendSquat);//attach a submit even listener
 }
 
 
 function registerBenchLogForm() {
-    $('#bench-log-form').submit(sendDataToBackendBench);
+    $('#bench-log-form').submit(sendDataToBackendBench);//attach a submit even listener
 }
 
 function registerDeadliftLogForm() {
-    $('#deadlift-log-form').submit(sendDataToBackendDeadlift);
+    $('#deadlift-log-form').submit(sendDataToBackendDeadlift);//attach a submit even listener
 }
 
 
