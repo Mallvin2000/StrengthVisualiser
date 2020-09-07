@@ -1,5 +1,29 @@
 .main-title {
-    margin-bottom: 5%;
+    margin-bottom: 7%;
+    padding-top: 40px;
+    
+}
+
+.main-title-text {
+    font-size: 3rem;
+}
+
+.headline {
+    margin-bottom: 5%; 
+}
+
+.headline-text {
+    font-size: 2.5rem;
+}
+
+
+.sub-headline {
+    margin-top: 4%;
+    font-size: 26px;
+}
+
+.headline-img-container {
+    /*padding-left: 300px;*/
 }
 
 .what-is-strength-visualiser {
@@ -26,4 +50,26 @@
     border: 1px solid black;
     color: white;
     background-color: red;
+}
+
+main {
+    /* background-color: seashell; */
+    /* background-color: papayawhip; */
+    /* background-color: oldlace;*/
+    background-color: #efe2d9;
+}
+
+
+.try-now-btn{
+margin-top: 8%;
+margin-left: 13%;
+}
+
+.btn {
+    border-radius: 999px;
+}
+
+.btn-lg {
+    padding: 20px 28px;
+    font-size: 20px;
 }
