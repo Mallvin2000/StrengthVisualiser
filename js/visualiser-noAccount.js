@@ -111,6 +111,23 @@ function registerModal() {
     });
 }
 
+
+
+function compare(a, b) {
+    const bandA = a.date;
+    const bandB = b.date;
+  
+    let comparison = 0;
+    if (bandA > bandB) {
+      comparison = 1;
+    } else if (bandA < bandB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+
+
 function populateModal() {
     var data = [];
     for (let i = 0; i < xAxis.length; i++) {
@@ -120,6 +137,7 @@ function populateModal() {
         });
 
     }
+    data.sort(compare);//Sort array in ascending order of date
     const dataTableHTML = data.map(
         ({ weight, date }) => `
                 <tr>
