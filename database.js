@@ -305,6 +305,88 @@ function getUserDeadliftData(userid, startYear, endYear, callback) {
 
 
 
+function getAllSquat(userid, year, month, callback) {
+
+    let whereClause;
+    let i = 1;
+    const values = [userid];
+    whereClause = `WHERE userId = $${i++}`;
+    if (year) { //filtering required
+        year += "";
+        values.push(year);
+        whereClause += ` AND year = $${i++}`
+    } 
+     if (month) {
+        month += "";
+        values.push(month);
+        whereClause += ` AND month = $${i++} `
+    }
+
+    const query = `SELECT * FROM squat ${whereClause} ORDER BY year asc, month asc;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, values, (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function getAllBench(userid, year, month, callback) {
+
+    let whereClause;
+    let i = 1;
+    const values = [userid];
+    whereClause = `WHERE userId = $${i++}`;
+    if (year) { //filtering required
+        year += "";
+        values.push(year);
+        whereClause += ` AND year = $${i++}`
+    } 
+     if (month) {
+        month += "";
+        values.push(month);
+        whereClause += ` AND month = $${i++} `
+    }
+
+    const query = `SELECT * FROM bench ${whereClause} ORDER BY year asc, month asc;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, values, (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function getAllDeadlift(userid, year, month, callback) {
+
+    let whereClause;
+    let i = 1;
+    const values = [userid];
+    whereClause = `WHERE userId = $${i++}`;
+    if (year) { //filtering required
+        year += "";
+        values.push(year);
+        whereClause += ` AND year = $${i++}`
+    } 
+     if (month) {
+        month += "";
+        values.push(month);
+        whereClause += ` AND month = $${i++} `
+    }
+
+    const query = `SELECT * FROM deadlift ${whereClause} ORDER BY year asc, month asc;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, values, (err, { rows }) => {
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+
 module.exports = {
     resetTable,
     addUser,
@@ -318,4 +400,7 @@ module.exports = {
     getUserSquatData,
     getUserBenchData,
     getUserDeadliftData,
+    getAllSquat,
+    getAllBench,
+    getAllDeadlift,
 };
