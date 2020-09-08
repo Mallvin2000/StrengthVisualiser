@@ -163,7 +163,7 @@ app.post('/insert/deadlift-log', verifyToken, (req, res) => {
 });
 
 
-app.get('/get/user/data', verifyToken, (req,res) => {
+app.get('/get/user/data', verifyToken, (req, res) => {
   //console.log("received");
   var userid = req.body.userid;//userid from verify token that is stored in request body
 
@@ -186,22 +186,22 @@ app.put("/update/user", verifyToken, (req, res) => {//qn4
   //console.log(username);
   //console.log("Password: " + password);
 
-  database.updateUserProfile(username, password, userid, (err,result) => {
+  database.updateUserProfile(username, password, userid, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
-      res.json({result: "Updated successfully"});
+      res.json({ result: "Updated successfully" });
     }
   });
-  
+
 });
 
 
 
-app.get('/get/squat', verifyToken, (req,res) => {
+app.get('/get/squat', verifyToken, (req, res) => {
   //console.log("received");
   var userid = req.body.userid;//userid from verify token that is stored in request body
-  const {startYear, endYear} = req.query;//extract from GET query URL
+  const { startYear, endYear } = req.query;//extract from GET query URL
   //console.log(startYear, endYear);
   database.getUserSquatData(userid, startYear, endYear, (err, result) => {
     if (err) {
@@ -213,10 +213,10 @@ app.get('/get/squat', verifyToken, (req,res) => {
 });
 
 
-app.get('/get/bench', verifyToken, (req,res) => {
+app.get('/get/bench', verifyToken, (req, res) => {
   //console.log("received");
   var userid = req.body.userid;//userid from verify token that is stored in request body
-  const {startYear, endYear} = req.query;
+  const { startYear, endYear } = req.query;
 
   database.getUserBenchData(userid, startYear, endYear, (err, result) => {
     if (err) {
@@ -228,11 +228,53 @@ app.get('/get/bench', verifyToken, (req,res) => {
 });
 
 
-app.get('/get/deadlift', verifyToken, (req,res) => {
+app.get('/get/deadlift', verifyToken, (req, res) => {
   //console.log("received");
   var userid = req.body.userid;//userid from verify token that is stored in request body
-  const {startYear, endYear} = req.query;
+  const { startYear, endYear } = req.query;
   database.getUserDeadliftData(userid, startYear, endYear, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+app.get('/get/all/squat', verifyToken, (req, res) => {
+  var userid = req.body.userid;
+  const { year, month } = req.query;
+
+  database.getAllSquat(userid, year, month, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+app.get('/get/all/bench', verifyToken, (req, res) => {
+  var userid = req.body.userid;
+  const { year, month } = req.query;
+
+  database.getAllBench(userid, year, month, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+app.get('/get/all/deadlift', verifyToken, (req, res) => {
+  var userid = req.body.userid;
+  const { year, month } = req.query;
+
+  database.getAllDeadlift(userid, year, month, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
