@@ -259,9 +259,9 @@ app.get('/get/all/squat', verifyToken, (req, res) => {
 
 app.get('/get/all/bench', verifyToken, (req, res) => {
   var userid = req.body.userid;
-  const { year, month } = req.query;
+  const { year, month, limit, offset } = req.query;
 
-  database.getAllBench(userid, year, month, (err, result) => {
+  database.getAllBench(userid, year, month, limit, offset, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
@@ -273,9 +273,63 @@ app.get('/get/all/bench', verifyToken, (req, res) => {
 
 app.get('/get/all/deadlift', verifyToken, (req, res) => {
   var userid = req.body.userid;
-  const { year, month } = req.query;
+  const { year, month, limit, offset } = req.query;
 
-  database.getAllDeadlift(userid, year, month, (err, result) => {
+  database.getAllDeadlift(userid, year, month, limit, offset, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+
+app.get('/get/all/squat/:id', verifyToken, (req, res) => {
+  console.log("enter");
+  var squatid = req.params.id;
+  var userid = req.body.userid;
+  //console.log(squatid);
+  //console.log(limit, offset);
+
+  database.getSpecificSquat(userid, squatid, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+
+app.get('/get/all/bench/:id', verifyToken, (req, res) => {
+  console.log("enter");
+  var benchid = req.params.id;
+  var userid = req.body.userid;
+  //console.log(squatid);
+  //console.log(limit, offset);
+
+  database.getSpecificBench(userid, benchid, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+
+
+app.get('/get/all/deadlift/:id', verifyToken, (req, res) => {
+  console.log("enter");
+  var deadliftid = req.params.id;
+  var userid = req.body.userid;
+  //console.log(squatid);
+  //console.log(limit, offset);
+
+  database.getSpecificDeadlift(userid, deadliftid, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
