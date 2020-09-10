@@ -334,7 +334,9 @@ function getAllSquat(userid, year, month, limit=10, offset=0, callback) {
 }
 
 
-function getAllBench(userid, year, month, callback) {
+
+
+function getAllBench(userid, year, month, limit=10, offset=0, callback) {
 
     let whereClause;
     let i = 1;
@@ -350,8 +352,10 @@ function getAllBench(userid, year, month, callback) {
         values.push(month);
         whereClause += ` AND month = $${i++} `
     }
-
-    const query = `SELECT * FROM bench ${whereClause} ORDER BY year asc, month asc;`
+    let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`;
+    values.push(parseInt(limit));//limit is page size/ how many rows you want to show
+    values.push(parseInt(offset * limit));//offset is how many rows you want to ignore.   offset = currnt page size multiple delta which keeps track of which page we are on, see mr jeremiha explanation
+    const query = `SELECT * FROM bench ${whereClause} ORDER BY year asc, month asc ${limitOffsetClause};`
     //console.log(query);
     const client = connect();
     client.query(query, values, (err, { rows }) => {
@@ -361,7 +365,7 @@ function getAllBench(userid, year, month, callback) {
 }
 
 
-function getAllDeadlift(userid, year, month, callback) {
+function getAllDeadlift(userid, year, month, limit=10, offset=0, callback) {
 
     let whereClause;
     let i = 1;
@@ -377,8 +381,10 @@ function getAllDeadlift(userid, year, month, callback) {
         values.push(month);
         whereClause += ` AND month = $${i++} `
     }
-
-    const query = `SELECT * FROM deadlift ${whereClause} ORDER BY year asc, month asc;`
+    let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`;
+    values.push(parseInt(limit));//limit is page size/ how many rows you want to show
+    values.push(parseInt(offset * limit));//offset is how many rows you want to ignore.   offset = currnt page size multiple delta which keeps track of which page we are on, see mr jeremiha explanation
+    const query = `SELECT * FROM deadlift ${whereClause} ORDER BY year asc, month asc ${limitOffsetClause};`
     //console.log(query);
     const client = connect();
     client.query(query, values, (err, { rows }) => {
@@ -387,6 +393,42 @@ function getAllDeadlift(userid, year, month, callback) {
     });
 }
 
+
+
+function getSpecificSquat(userid, squatid, callback) {
+    const query = `SELECT * FROM squat WHERE userId = $1 AND squatId = $2;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [userid, squatid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function getSpecificBench(userid, benchid, callback) {
+    const query = `SELECT * FROM bench WHERE userId = $1 AND benchId = $2;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [userid, benchid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function getSpecificDeadlift(userid, deadliftid, callback) {
+    const query = `SELECT * FROM deadlift WHERE userId = $1 AND deadliftId = $2;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [userid, deadliftid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
 
 
 module.exports = {
@@ -405,4 +447,7 @@ module.exports = {
     getAllSquat,
     getAllBench,
     getAllDeadlift,
+    getSpecificSquat,
+    getSpecificBench, 
+    getSpecificDeadlift,
 };
