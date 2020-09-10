@@ -305,7 +305,7 @@ function getUserDeadliftData(userid, startYear, endYear, callback) {
 
 
 
-function getAllSquat(userid, year, month, callback) {
+function getAllSquat(userid, year, month, limit=10, offset=0, callback) {
 
     let whereClause;
     let i = 1;
@@ -321,8 +321,10 @@ function getAllSquat(userid, year, month, callback) {
         values.push(month);
         whereClause += ` AND month = $${i++} `
     }
-
-    const query = `SELECT * FROM squat ${whereClause} ORDER BY year asc, month asc;`
+    let limitOffsetClause = `LIMIT $${i++} OFFSET $${i++}`;
+    values.push(parseInt(limit));//limit is page size/ how many rows you want to show
+    values.push(parseInt(offset * limit));//offset is how many rows you want to ignore.   offset = currnt page size multiple delta which keeps track of which page we are on, see mr jeremiha explanation
+    const query = `SELECT * FROM squat ${whereClause} ORDER BY year asc, month asc ${limitOffsetClause};`
     //console.log(query);
     const client = connect();
     client.query(query, values, (err, { rows }) => {

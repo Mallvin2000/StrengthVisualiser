@@ -244,9 +244,10 @@ app.get('/get/deadlift', verifyToken, (req, res) => {
 
 app.get('/get/all/squat', verifyToken, (req, res) => {
   var userid = req.body.userid;
-  const { year, month } = req.query;
+  const { year, month, limit, offset } = req.query;
+  //console.log(limit, offset);
 
-  database.getAllSquat(userid, year, month, (err, result) => {
+  database.getAllSquat(userid, year, month, limit, offset, (err, result) => {
     if (err) {
       res.status(500).send({ "Error": err.detail });
     } else {
