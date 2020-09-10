@@ -38,11 +38,11 @@
     <section class="record-viewer">
         <div class="card">
             <div class="card-header">
-                <h2 class="text-center">Record Viewer</h2>
+                <h1 class="text-center">Record Viewer</h1>
             </div>
             <div class="card-body">
                 <div class="main-title mb-4">
-                    <h1 class="text-center">Data Viewer</h1>
+                    <h3 class="text-center">Filter Search</h3>
                   </div>
 
                   <form id="basic-data-filter-form">
@@ -86,17 +86,18 @@
                   <div class="col-11">
                       <nav aria-label="Page navigation example">
                           <ul class="pagination">
-                              <li class="page-item"><a fn="gotoFirstPage" id="basic-data-first-page" class="page-link" href="#">First</a></li>
-                              <li class="page-item"><a fn="changePage" value = "-1" id="basic-data-previous-page" class="page-link" href="#">Previous</a></li>
-                              <li class="page-item"><a fn="changePage" value = "1" id="basic-data-next-page" class="page-link" href="#">Next</a></li>
+                              <li class="page-item"><a fn="gotoFirstPage" id="first-page" class="page-link" href="#">First</a></li>
+                              <li class="page-item"><a fn="changePage" value = "-1" id="previous-page" class="page-link" href="#">Previous</a></li>
+                              <li class="page-item"><a fn="changePage" value = "1" id="next-page" class="page-link" href="#">Next</a></li>
                               <li class="page-item"><a class="page-link" href="#">Last</a></li>
                           </ul>
                       </nav>
                   </div>
                   <div class="col-1">
-                      <select fn="changePageSize" id="basic-data-page-size-select" class="custom-select">
+                      <select fn="changePageSize" id="page-size-select" class="custom-select">
                           <option value="3">3</option>
-                          <option value="10" selected>10</option>
+                          <option value="5" selected>5</option>
+                          <option value="10">10</option>
                           <option value="20">20</option>
                       </select>
                   </div>
