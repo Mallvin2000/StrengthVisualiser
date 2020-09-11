@@ -287,7 +287,7 @@ app.get('/get/all/deadlift', verifyToken, (req, res) => {
 
 
 app.get('/get/all/squat/:id', verifyToken, (req, res) => {
-  console.log("enter");
+  //console.log("enter");
   var squatid = req.params.id;
   var userid = req.body.userid;
   //console.log(squatid);
@@ -305,7 +305,7 @@ app.get('/get/all/squat/:id', verifyToken, (req, res) => {
 
 
 app.get('/get/all/bench/:id', verifyToken, (req, res) => {
-  console.log("enter");
+  //console.log("enter");
   var benchid = req.params.id;
   var userid = req.body.userid;
   //console.log(squatid);
@@ -323,7 +323,7 @@ app.get('/get/all/bench/:id', verifyToken, (req, res) => {
 
 
 app.get('/get/all/deadlift/:id', verifyToken, (req, res) => {
-  console.log("enter");
+  //console.log("enter");
   var deadliftid = req.params.id;
   var userid = req.body.userid;
   //console.log(squatid);
@@ -334,6 +334,61 @@ app.get('/get/all/deadlift/:id', verifyToken, (req, res) => {
       res.status(500).send({ "Error": err.detail });
     } else {
       res.json(result);
+    }
+  });
+});
+
+
+app.put('/squat/update', verifyToken, (req,res) => {
+  //console.log("ENTER UPDATE SQUAT");
+  var userid = req.body.userid;
+  var liftid = req.body.liftid;
+  var weight = req.body.weight;
+  var year = req.body.year;
+  var month = req.body.month;
+  console.log(liftid,weight,year,month);
+
+  database.updateSquatRecord(userid, liftid, weight, year, month, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Successfully updated"});
+    }
+  });
+});
+
+
+app.put('/bench/update', verifyToken, (req,res) => {
+  var userid = req.body.userid;
+  var liftid = req.body.liftid;
+  var weight = req.body.weight;
+  var year = req.body.year;
+  var month = req.body.month;
+  console.log(liftid,weight,year,month);
+
+  database.updateBenchRecord(userid, liftid, weight, year, month, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Successfully updated"});
+    }
+  });
+});
+
+
+
+app.put('/deadlift/update', verifyToken, (req,res) => {
+  var userid = req.body.userid;
+  var liftid = req.body.liftid;
+  var weight = req.body.weight;
+  var year = req.body.year;
+  var month = req.body.month;
+  console.log(liftid,weight,year,month);
+  database.updateDeadliftRecord(userid, liftid, weight, year, month, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Successfully updated"});
     }
   });
 });

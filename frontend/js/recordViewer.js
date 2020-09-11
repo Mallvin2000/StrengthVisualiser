@@ -65,6 +65,60 @@ function modal() {
 
 
 
+function updateDataInBackend(event) {
+    event.preventDefault();
+    /* console.log($("#txt_lift_id").val(),
+    $("#txt_weight").val(),
+    $("#txt_year").val(),
+    $("#month-select option:selected").val()); */
+    var liftType = $("#liftType-select option:selected").val()
+    var url = "";
+    if (liftType == "Squat") {
+        url = "http://localhost:3000/squat/update"
+    } else if (liftType == "Bench") {
+        url = "http://localhost:3000/bench/update"
+    } else if (liftType == "Deadlift") {
+        url = "http://localhost:3000/deadlift/update"
+    }
+
+    var settings = {
+        "url": url,
+        "method": "PUT",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Authorization": "Bearer " + localStorage["token"]
+        },
+        "data": {
+            "liftid": $("#txt_lift_id").val(),
+            "weight": $("#txt_weight").val(),
+            "year": $("#txt_year").val(),
+            "month": $("#month-select option:selected").val()
+
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        //populateTable(response)
+    });
+}
+
+
+function registerUpdateRecordForm(id) {
+    var liftType = $("#liftType-select option:selected").val()
+    console.log(liftType+" : " + id);
+    if (liftType == "Squat") {
+        $(`#update-record-form-squat-${id}`).submit(updateDataInBackend)
+    } else if (liftType == "Bench") {
+        $(`#update-record-form-bench-${id}`).submit(updateDataInBackend)
+    } else if (liftType == "Deadlift") {
+        $(`#update-record-form-deadlift-${id}`).submit(updateDataInBackend)
+    }
+    
+    
+}
+
 function populateOptions(data) {
     var liftType = $("#liftType-select option:selected").val();
 
@@ -92,12 +146,259 @@ function populateOptions(data) {
                     console.log(response);
 
                     for (let i = 0; i < response.length; i++) {
-                        $(".modal-body").append("<p>Squat ID: " + response[i].squatid + "</p>");//change these to a form with inputs with a submit button with a register/listener
+                        /*$(".modal-body").append("<p>Squat ID: " + response[i].squatid + "</p>");//change these to a form with inputs with a submit button with a register/listener
                         $(".modal-body").append("<p>Weight: " + response[i].weight + "</p>");
-                        $(".modal-body").append("<p>Year: " + response[i].year + "</p>");
-                        $(".modal-body").append("<p>Month: " + response[i].month + "</p>");
-                        $(".modal-title-container").append("<h4 class=\"modal-title\">" + response[i].squatid + " Specifications</h4>");
+                        $(".modal-body").append("<p>Year: " + response[i].year + "</p>");*/
+                        var options = "";
+                        var month = parseInt(response[i].month);
+                        //console.log(month); 
+                        switch (month) {
+                            case 01:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option selected>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 02:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option selected>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 03:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option selected>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 04:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option selected>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 05:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option selected>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 06:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option selected>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 07:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option selected>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 08:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option selected>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 09:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option selected>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 10:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option selected>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 11:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option selected>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 12:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option selected>12</option>
+                                `
+                                break;
 
+                            default:
+                                break;
+                        }
+
+
+
+                        $(".modal-body").append(`<form id="update-record-form-squat-${response[i].squatid}" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_weight">Squat ID:</label>
+                                <input disabled type="number" class="form-control" id="txt_lift_id" value="${response[i].squatid}" >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_weight">Weight (KG) :</label>
+                                <input type="number" class="form-control" id="txt_weight" value="${response[i].weight}" >
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_year">Year: </label>
+                                <input type="number" class="form-control" id="txt_year" value="${response[i].year}">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="month-select">Month:</label>
+                                <select id="month-select" class="form-control">
+                                    ${options}
+                                </select>
+                            </div>
+                        </div>
+                        <div id="message">
+                        </div>
+                        <button id="new-log-button" type="submit" class="btn btn-primary">Update</button>
+                    </form>`);
+                        $(".modal-title-container").append("<h4 class=\"modal-title\">Update Record</h4>");
+
+                        registerUpdateRecordForm(response[i].squatid);
                     }
 
                 })
@@ -137,8 +438,259 @@ function populateOptions(data) {
                     console.log(response);
 
                     for (let i = 0; i < response.length; i++) {
-                        $(".modal-body").append("<p>" + response[i].benchid + "</p>");
-                        $(".modal-title-container").append("<h4 class=\"modal-title\">" + response[i].benchid + " Specifications</h4>");
+                        /*$(".modal-body").append("<p>Squat ID: " + response[i].squatid + "</p>");//change these to a form with inputs with a submit button with a register/listener
+                        $(".modal-body").append("<p>Weight: " + response[i].weight + "</p>");
+                        $(".modal-body").append("<p>Year: " + response[i].year + "</p>");*/
+                        var options = "";
+                        var month = parseInt(response[i].month);
+                        //console.log(month); 
+                        switch (month) {
+                            case 01:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option selected>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 02:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option selected>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 03:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option selected>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 04:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option selected>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 05:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option selected>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 06:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option selected>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 07:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option selected>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 08:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option selected>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 09:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option selected>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 10:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option selected>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 11:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option selected>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 12:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option selected>12</option>
+                                `
+                                break;
+
+                            default:
+                                break;
+                        }
+
+
+
+                        $(".modal-body").append(`<form id="update-record-form-bench-${response[i].benchid}" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_weight">Bench ID:</label>
+                                <input disabled type="number" class="form-control" id="txt_lift_id" value="${response[i].benchid}" >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_weight">Weight (KG) :</label>
+                                <input type="number" class="form-control" id="txt_weight" value="${response[i].weight}" >
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_year">Year: </label>
+                                <input type="number" class="form-control" id="txt_year" value="${response[i].year}">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="month-select">Month:</label>
+                                <select id="month-select" class="form-control">
+                                    ${options}
+                                </select>
+                            </div>
+                        </div>
+                        <div id="message">
+                        </div>
+                        <button id="new-log-button" type="submit" class="btn btn-primary">Update</button>
+                    </form>`);
+                        $(".modal-title-container").append("<h4 class=\"modal-title\">Update Record</h4>");
+
+                        registerUpdateRecordForm(response[i].benchid);
 
                     }
 
@@ -153,7 +705,7 @@ function populateOptions(data) {
 
             });
 
-            
+
         }
 
         modal();
@@ -181,8 +733,259 @@ function populateOptions(data) {
                     console.log(response);
 
                     for (let i = 0; i < response.length; i++) {
-                        $(".modal-body").append("<p>" + response[i].deadliftid + "</p>");
-                        $(".modal-title-container").append("<h4 class=\"modal-title\">" + response[i].deadliftid + " Specifications</h4>");
+                        /*$(".modal-body").append("<p>Squat ID: " + response[i].squatid + "</p>");//change these to a form with inputs with a submit button with a register/listener
+                        $(".modal-body").append("<p>Weight: " + response[i].weight + "</p>");
+                        $(".modal-body").append("<p>Year: " + response[i].year + "</p>");*/
+                        var options = "";
+                        var month = parseInt(response[i].month);
+                        //console.log(month); 
+                        switch (month) {
+                            case 01:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option selected>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 02:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option selected>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 03:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option selected>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 04:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option selected>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 05:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option selected>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 06:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option selected>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 07:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option selected>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 08:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option selected>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 09:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option selected>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 10:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option selected>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 11:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option selected>11</option>
+                                    <option>12</option>
+                                `
+                                break;
+                            case 12:
+                                options = `
+                                <option disabled>Choose a month...</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option selected>12</option>
+                                `
+                                break;
+
+                            default:
+                                break;
+                        }
+
+
+
+                        $(".modal-body").append(`<form id="update-record-form-deadlift-${response[i].deadliftid}" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_weight">Deadlift ID:</label>
+                                <input disabled type="number" class="form-control" id="txt_lift_id" value="${response[i].deadliftid}" >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_weight">Weight (KG) :</label>
+                                <input type="number" class="form-control" id="txt_weight" value="${response[i].weight}" >
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label for="txt_year">Year: </label>
+                                <input type="number" class="form-control" id="txt_year" value="${response[i].year}">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="month-select">Month:</label>
+                                <select id="month-select" class="form-control">
+                                    ${options}
+                                </select>
+                            </div>
+                        </div>
+                        <div id="message">
+                        </div>
+                        <button id="new-log-button" type="submit" class="btn btn-primary">Update</button>
+                    </form>`);
+                        $(".modal-title-container").append("<h4 class=\"modal-title\">Update Record</h4>");
+
+                        registerUpdateRecordForm(response[i].deadliftid);
 
                     }
 

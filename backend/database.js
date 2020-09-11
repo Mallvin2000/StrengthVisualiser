@@ -431,6 +431,43 @@ function getSpecificDeadlift(userid, deadliftid, callback) {
 }
 
 
+function updateSquatRecord(userid, squatid, weight, year, month, callback ) {
+    //console.log("IM IN DATABASE MANAGEMENT");
+    const query = `UPDATE squat SET weight = $1, year = $2, month = $3 WHERE userId = $4 AND squatId = $5;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [weight, year, month, userid, squatid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function updateBenchRecord(userid, benchid, weight, year, month, callback ) {
+    const query = `UPDATE bench SET weight = $1, year = $2, month = $3 WHERE userId = $4 AND benchId = $5;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [weight, year, month, userid, benchid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function updateDeadliftRecord(userid, deadliftid, weight, year, month, callback ) {
+    const query = `UPDATE deadlift SET weight = $1, year = $2, month = $3 WHERE userId = $4 AND deadliftId = $5;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [weight, year, month, userid, deadliftid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
 module.exports = {
     resetTable,
     addUser,
@@ -450,4 +487,7 @@ module.exports = {
     getSpecificSquat,
     getSpecificBench, 
     getSpecificDeadlift,
+    updateSquatRecord,
+    updateBenchRecord,
+    updateDeadliftRecord,
 };
