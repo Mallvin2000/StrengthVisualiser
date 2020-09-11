@@ -468,6 +468,43 @@ function updateDeadliftRecord(userid, deadliftid, weight, year, month, callback 
 }
 
 
+function deleteSquatRecord(userid, squatid, callback) {
+    const query = `DELETE FROM squat WHERE userId = $1 AND squatId = $2;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [userid, squatid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+
+function deleteBenchRecord(userid, benchid, callback) {
+    const query = `DELETE FROM bench WHERE userId = $1 AND benchId = $2;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [userid, benchid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
+function deleteDeadliftRecord(userid, deadliftid, callback) {
+    const query = `DELETE FROM deadlift WHERE userId = $1 AND deadliftId = $2;`
+    //console.log(query);
+    const client = connect();
+    client.query(query, [userid, deadliftid], (err, { rows }) => {
+        //console.log(rows);
+        callback(err, rows);
+        client.end();
+    });
+}
+
+
 module.exports = {
     resetTable,
     addUser,
@@ -490,4 +527,7 @@ module.exports = {
     updateSquatRecord,
     updateBenchRecord,
     updateDeadliftRecord,
+    deleteSquatRecord,
+    deleteBenchRecord,
+    deleteDeadliftRecord,
 };

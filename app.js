@@ -395,6 +395,52 @@ app.put('/deadlift/update', verifyToken, (req,res) => {
 
 
 
+app.delete('/squat/delete/:id', verifyToken, (req, res) => {
+  var userid = req.body.userid;
+  var squatid = req.params.id;
+
+  database.deleteSquatRecord(userid, squatid, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Successfully deleted"});
+    }
+  });
+
+});
+
+
+app.delete('/bench/delete/:id', verifyToken, (req, res) => {
+  var userid = req.body.userid;
+  var benchid = req.params.id;
+
+  database.deleteBenchRecord(userid, benchid, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Successfully deleted"});
+    }
+  });
+
+});
+
+
+
+app.delete('/deadlift/delete/:id', verifyToken, (req, res) => {
+  var userid = req.body.userid;
+  var deadliftid = req.params.id;
+
+  database.deleteDeadliftRecord(userid, deadliftid, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+    } else {
+      res.json({result: "Successfully deleted"});
+    }
+  });
+
+});
+
+
 
 
 // catch 404 and forward to error handler
