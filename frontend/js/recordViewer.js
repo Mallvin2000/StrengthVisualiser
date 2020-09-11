@@ -64,6 +64,53 @@ function modal() {
 }
 
 
+function modalDelete() {
+    console.log("ENTER");
+    // Get the modal
+    var modal = $("#myModal");
+
+    // Get the button that opens the modal
+    var btn = $('.btn-delete');
+
+    // Get the Close button that opens the modal
+    var btnClose = $('.btn-close');
+
+    // Get the <span> element that closes the modal
+    var span = $(".close");
+
+    // When the user clicks on the button, open the modal
+    btn.click(function () {
+        console.log("Pressed");
+        modal.attr("style", "display:block");
+    })
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.click(function () {
+        modal.attr("style", "display:none");
+        $(".modal-body").empty();//to clear what ever is appended when the submit is clicked. like refreshing the page
+        $(".modal-title-container").empty();
+    }
+    )
+
+    // When the user clicks on <button> close, close the modal
+    btnClose.click(function () {
+        modal.attr("style", "display:none");
+        $(".modal-body").empty();//to clear what ever is appended when the submit is clicked. like refreshing the page
+        $(".modal-title-container").empty();
+    }
+    )
+
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.attr("style", "display:none");
+        }
+    }
+}
+
+
 
 function updateDataInBackend(event) {
     event.preventDefault();
@@ -107,7 +154,7 @@ function updateDataInBackend(event) {
 
 function registerUpdateRecordForm(id) {
     var liftType = $("#liftType-select option:selected").val()
-    console.log(liftType+" : " + id);
+    console.log(liftType + " : " + id);
     if (liftType == "Squat") {
         $(`#update-record-form-squat-${id}`).submit(updateDataInBackend)
     } else if (liftType == "Bench") {
@@ -115,8 +162,8 @@ function registerUpdateRecordForm(id) {
     } else if (liftType == "Deadlift") {
         $(`#update-record-form-deadlift-${id}`).submit(updateDataInBackend)
     }
-    
-    
+
+
 }
 
 function populateOptions(data) {
@@ -127,6 +174,33 @@ function populateOptions(data) {
         for (let i = 0; i < data.length; i++) {
             $('#delete-' + data[i].squatid).on("click", (event) => {
                 //console.log("CLICKED" + data[i].squatid);
+                console.log("Clicked");
+                $(".modal-body").append(`<p>Are you sure you want to DELETE this record?</p>`)
+                $(".modal-body").append(`<button id="delete-button-${data[i].squatid}" type="submit" class="btn btn-danger">DELETE</button>`)
+                $(`#delete-button-${data[i].squatid}`).on("click", (event) => {
+                    console.log("deleting" + data[i].squatid);
+
+                    var settings = {
+                        "url": "http://localhost:3000/squat/delete/" + data[i].squatid,
+                        "method": "DELETE",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "Authorization": "Bearer " + localStorage["token"]
+                        }
+                    };
+
+                    $.ajax(settings).done(function (response) {//response array holds a return/result object
+                        //console.log("Login Success");
+                        location.reload();
+
+                    })
+                        .fail((response) => {
+                            console.log("Error!");
+                            //alert("Wrong username/password");
+
+                        });
+                })
             });
 
             $('#update-' + data[i].squatid).on("click", (event) => {
@@ -413,12 +487,40 @@ function populateOptions(data) {
             });
         }
         modal();
+        modalDelete();
 
 
     } else if (liftType == "Bench") {
         for (let i = 0; i < data.length; i++) {
             $('#delete-' + data[i].benchid).on("click", (event) => {
-                //console.log("CLICKED" + data[i].benchid);
+                //console.log("CLICKED" + data[i].squatid);
+                console.log("Clicked");
+                $(".modal-body").append(`<p>Are you sure you want to DELETE this record?</p>`)
+                $(".modal-body").append(`<button id="delete-button-${data[i].benchid}" type="submit" class="btn btn-danger">DELETE</button>`)
+                $(`#delete-button-${data[i].benchid}`).on("click", (event) => {
+                    console.log("deleting" + data[i].benchid);
+
+                    var settings = {
+                        "url": "http://localhost:3000/bench/delete/" + data[i].benchid,
+                        "method": "DELETE",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "Authorization": "Bearer " + localStorage["token"]
+                        }
+                    };
+
+                    $.ajax(settings).done(function (response) {//response array holds a return/result object
+                        //console.log("Login Success");
+                        location.reload();
+
+                    })
+                        .fail((response) => {
+                            console.log("Error!");
+                            //alert("Wrong username/password");
+
+                        });
+                })
             });
 
             $('#update-' + data[i].benchid).on("click", (event) => {
@@ -709,11 +811,39 @@ function populateOptions(data) {
         }
 
         modal();
+        modalDelete();
 
     } else if (liftType == "Deadlift") {
         for (let i = 0; i < data.length; i++) {
             $('#delete-' + data[i].deadliftid).on("click", (event) => {
-                //console.log("CLICKED" + data[i].deadliftid);
+                //console.log("CLICKED" + data[i].squatid);
+                console.log("Clicked");
+                $(".modal-body").append(`<p>Are you sure you want to DELETE this record?</p>`)
+                $(".modal-body").append(`<button id="delete-button-${data[i].deadliftid}" type="submit" class="btn btn-danger">DELETE</button>`)
+                $(`#delete-button-${data[i].deadliftid}`).on("click", (event) => {
+                    console.log("deleting" + data[i].deadliftid);
+
+                    var settings = {
+                        "url": "http://localhost:3000/deadlift/delete/" + data[i].deadliftid,
+                        "method": "DELETE",
+                        "timeout": 0,
+                        "headers": {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "Authorization": "Bearer " + localStorage["token"]
+                        }
+                    };
+
+                    $.ajax(settings).done(function (response) {//response array holds a return/result object
+                        //console.log("Login Success");
+                        location.reload();
+
+                    })
+                        .fail((response) => {
+                            console.log("Error!");
+                            //alert("Wrong username/password");
+
+                        });
+                })
             });
 
             $('#update-' + data[i].deadliftid).on("click", (event) => {
@@ -1003,6 +1133,7 @@ function populateOptions(data) {
         }
 
         modal();
+        modalDelete();
     }
 }
 
