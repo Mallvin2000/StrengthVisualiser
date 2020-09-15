@@ -24,6 +24,7 @@ function showLoggedInNavBar() {
                 <li class="nav-item"><a class="nav-link" href="insert.html">Insert record</a></li>
                 <li class="nav-item"><a class="nav-link" href="recordViewer.html">View records</a></li>
                 <li class="nav-item"><a class="nav-link" href="profile.html">My Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.html">Logout</a></li>
                 
             </ul>
@@ -48,6 +49,7 @@ function showNotLoggedInNavBar() {
                 <li class="nav-item"><a class="nav-link" href="visualiser-noAccount.html">Visualiser</a></li>
                 <li class="nav-item"><a class="nav-link" href="createAccount.html">Create Account</a></li>
                 <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
             </ul>
         </div>
     `;

@@ -17,9 +17,16 @@ function sendDataToBackend(event) {
     $.ajax(settings).done(function (response) {
         console.log(response);
         console.log(response.token);//extracting only the string of the token
+       /*  if (response.length == 0) {
+            console.log("Invalid username/password");
+        } */
         localStorage["token"] = response.token;//store token value into the browsers cookies/storage
         window.location.href = "index.html";//transfer user by adding it to the url bar. changes the url and takes us to that page
-    });
+    })
+    .fail((response) => {
+        $('#error-msg').html(`<p>Invalid username/password</p>`);//when backend returns a error when pass/username combo doesnt exist
+        //alert("ERROR");
+    });;
 }
 
 

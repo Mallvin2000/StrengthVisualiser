@@ -18,11 +18,14 @@ function getUserDataFromBackend() {
 }
 
 
+
+
 function verifyPassword() {
     var password = $("#password").val()
     var confirmPassword = $("#confirm-password").val()
     console.log(password);
-    if (password == confirmPassword) {
+    console.log(confirmPassword);
+    if (password === confirmPassword) {
         return true;
     } else {
         return false
@@ -40,10 +43,10 @@ function sendDataToBackend(event) {
         var password = $("#password").val();
 
         if (username.length == 0) {
-            username = $('#username').attr("placeholder");
+            username = $('#username').attr("placeholder");//send the orignal username
         }
 
-        if (password.length == 0 || password == "") {
+        if (password.length == 0 || password == "") {//get the original password to send back. not the most efficient way
             var settings = {
                 "url": "http://localhost:3000/get/user/data",
                 "method": "GET",

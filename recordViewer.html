@@ -36,107 +36,111 @@
         </nav>
     </header>
 
-    <section class="record-viewer">
-        <div class="card">
-            <div class="card-header">
-                <h1 class="text-center">Record Viewer</h1>
-            </div>
-            <div class="card-body">
-                <div class="main-title mb-4">
-                    <h3 class="text-center">Filter Search</h3>
+    <main>
+        <section class="record-viewer">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Record Viewer</h1>
                 </div>
-
-                <form id="basic-data-filter-form">
+                <div class="card-body">
+                    <div class="main-title mb-4">
+                        <h3 class="text-center">Filter Search</h3>
+                    </div>
+    
+                    <form id="basic-data-filter-form">
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <select id="liftType-select" class="form-control">
+                                    <option selected disabled>Choose type of lift...</option>
+                                    <option>Squat</option>
+                                    <option>Bench</option>
+                                    <option>Deadlift</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                <input id="yearFilter" key="year" type="number" class="form-control" placeholder="Year">
+                            </div>
+                            <div class="col-lg-4 col-sm-12">
+                                <input id="monthFilter" key="month" type="number" class="form-control" placeholder="Month">
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-primary ml-4">
+                            </div>
+    
+                        </div>
+                    </form>
+    
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+    
+                        <div class="modal-content">
+    
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <div class="modal-title-container">
+    
+                                </div>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+    
+                            <!-- Modal body -->
+                            <div class="modal-body">
+    
+                            </div>
+    
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn-close btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+    
+                    <table class="table mt-5 table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Weight</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Month</th>
+                                <th scope="col">Options</th>
+                                <!--<th scope="col">Options</th>-->
+                            </tr>
+                        </thead>
+                        <tbody id="basic-data-tbody">
+    
+                        </tbody>
+                    </table>
+    
                     <div class="form-row">
-                        <div class="col-md-3">
-                            <select id="liftType-select" class="form-control">
-                                <option selected disabled>Choose type of lift...</option>
-                                <option>Squat</option>
-                                <option>Bench</option>
-                                <option>Deadlift</option>
+                        <div class="col-11">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item"><a fn="gotoFirstPage" id="first-page" class="page-link"
+                                            href="#">First</a></li>
+                                    <li class="page-item"><a fn="changePage" value="-1" id="previous-page" class="page-link"
+                                            href="#">Previous</a></li>
+                                    <li class="page-item"><a fn="changePage" value="1" id="next-page" class="page-link"
+                                            href="#">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">Last</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-1">
+                            <select fn="changePageSize" id="page-size-select" class="custom-select">
+                                <option value="3">3</option>
+                                <option value="5" selected>5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
                             </select>
                         </div>
-                        <div class="col-lg-4 col-sm-12">
-                            <input id="yearFilter" key="year" type="number" class="form-control" placeholder="Year">
-                        </div>
-                        <div class="col-lg-4 col-sm-12">
-                            <input id="monthFilter" key="month" type="number" class="form-control" placeholder="Month">
-                        </div>
-                        <div>
-                            <input type="submit" class="btn btn-primary ml-4">
-                        </div>
-
-                    </div>
-                </form>
-
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-
-                    <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <div class="modal-title-container">
-
-                            </div>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn-close btn btn-danger" data-dismiss="modal">Close</button>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <table class="table mt-5 table-striped">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Weight</th>
-                            <th scope="col">Year</th>
-                            <th scope="col">Month</th>
-                            <th scope="col">Options</th>
-                            <!--<th scope="col">Options</th>-->
-                        </tr>
-                    </thead>
-                    <tbody id="basic-data-tbody">
-
-                    </tbody>
-                </table>
-
-                <div class="form-row">
-                    <div class="col-11">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"><a fn="gotoFirstPage" id="first-page" class="page-link"
-                                        href="#">First</a></li>
-                                <li class="page-item"><a fn="changePage" value="-1" id="previous-page" class="page-link"
-                                        href="#">Previous</a></li>
-                                <li class="page-item"><a fn="changePage" value="1" id="next-page" class="page-link"
-                                        href="#">Next</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Last</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-1">
-                        <select fn="changePageSize" id="page-size-select" class="custom-select">
-                            <option value="3">3</option>
-                            <option value="5" selected>5</option>
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                        </select>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
+
+    
 
 </body>
 
