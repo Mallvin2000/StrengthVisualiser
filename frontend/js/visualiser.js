@@ -16,6 +16,9 @@ function populateGraph(liftType, yAxis, xAxis) {
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
             }]
+        },
+        options: {
+            responsive: true
         }
     });
 }
@@ -50,20 +53,20 @@ function getLiftDataFromBackend(event) {
 
     var liftType = $("#liftType-select option:selected").val();
     var filterType = $("input[name='filterOption']:checked").val();
-    
-    
+
+
     if (liftType == "Squat") {
         var url = "http://localhost:3000/get/squat";
         if (filterType == "option1" || filterType == "option2") {
             var filterData = getFilterData(filterType);
             //console.log(filterData);
             if (filterType == "option1") {
-                url = "http://localhost:3000/get/squat?startYear="+filterData;
+                url = "http://localhost:3000/get/squat?startYear=" + filterData;
             } else if (filterType == "option2") {
-                url = "http://localhost:3000/get/squat?startYear="+filterData[0]+"&endYear="+filterData[1];
+                url = "http://localhost:3000/get/squat?startYear=" + filterData[0] + "&endYear=" + filterData[1];
             }
         }
-    
+
         var settings = {
             "url": url,
             "method": "GET",
@@ -73,7 +76,7 @@ function getLiftDataFromBackend(event) {
                 "Authorization": "Bearer " + localStorage["token"]
             }
         };
-    
+
         $.ajax(settings).done(function (response) {
             console.log(response);
             var xAxis = [];
@@ -85,7 +88,7 @@ function getLiftDataFromBackend(event) {
             }
 
             populateGraph(liftType, yAxis, xAxis);
-            
+
         });
     } else if (liftType == "Bench") {
         var url = "http://localhost:3000/get/bench";
@@ -93,9 +96,9 @@ function getLiftDataFromBackend(event) {
             var filterData = getFilterData(filterType);
             //console.log(filterData);
             if (filterType == "option1") {
-                url = "http://localhost:3000/get/bench?startYear="+filterData;
+                url = "http://localhost:3000/get/bench?startYear=" + filterData;
             } else if (filterType == "option2") {
-                url = "http://localhost:3000/get/bench?startYear="+filterData[0]+"&endYear="+filterData[1];
+                url = "http://localhost:3000/get/bench?startYear=" + filterData[0] + "&endYear=" + filterData[1];
             }
             console.log(url);
         }
@@ -109,7 +112,7 @@ function getLiftDataFromBackend(event) {
                 "Authorization": "Bearer " + localStorage["token"]
             }
         };
-    
+
         $.ajax(settings).done(function (response) {
             console.log(response);
             var xAxis = [];
@@ -121,7 +124,7 @@ function getLiftDataFromBackend(event) {
             }
 
             populateGraph(liftType, yAxis, xAxis);
-            
+
         });
     } else if (liftType == "Deadlift") {
         var url = "http://localhost:3000/get/deadlift";
@@ -129,9 +132,9 @@ function getLiftDataFromBackend(event) {
             var filterData = getFilterData(filterType);
             //console.log(filterData);
             if (filterType == "option1") {
-                url = "http://localhost:3000/get/deadlift?startYear="+filterData;
+                url = "http://localhost:3000/get/deadlift?startYear=" + filterData;
             } else if (filterType == "option2") {
-                url = "http://localhost:3000/get/deadlift?startYear="+filterData[0]+"&endYear="+filterData[1];
+                url = "http://localhost:3000/get/deadlift?startYear=" + filterData[0] + "&endYear=" + filterData[1];
             }
         }
 
@@ -144,7 +147,7 @@ function getLiftDataFromBackend(event) {
                 "Authorization": "Bearer " + localStorage["token"]
             }
         };
-    
+
         $.ajax(settings).done(function (response) {
             console.log(response);
             var xAxis = [];
@@ -156,11 +159,11 @@ function getLiftDataFromBackend(event) {
             }
 
             populateGraph(liftType, yAxis, xAxis);
-            
+
         });
     }
 
-    
+
 }
 
 
@@ -197,8 +200,8 @@ function checkRadioSelected() {
         </div>
     `;
 
-    //$('#filter-inputs').empty();
-    $('#filter-inputs').html(html);
+        //$('#filter-inputs').empty();
+        $('#filter-inputs').html(html);
 
     } else if (currentSelectedRadio == "option3") {
         $('#filter-inputs').empty();

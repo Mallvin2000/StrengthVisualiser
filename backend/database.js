@@ -65,7 +65,17 @@ function resetTable() {
         );
     `;
 
-    const query = `${dropTables} ${query1} ${query2} ${query3} ${query4}`;
+
+    const query5 = `
+        CREATE TABLE feedback (
+            feedbackId SERIAL PRIMARY KEY,
+            name varchar(50),
+            email varchar(100),
+            feedback varchar(200) NOT NULL
+        );
+    `;
+
+    const query = `${dropTables} ${query1} ${query2} ${query3} ${query4} ${query5}`;
 
 
     client.query(query, (err, res) => {
@@ -163,6 +173,7 @@ function login(username, password, callback) {
 
     const client = connect();
     client.query(query, [], (err, {rows}) => {
+        console.log(rows.length);
         console.log(rows);
         if (rows.length == 1) {//username and password combination exists
             var token = "";
@@ -505,6 +516,21 @@ function deleteDeadliftRecord(userid, deadliftid, callback) {
 }
 
 
+function insertFeedback(name, email, feedback, callback) {
+    let i = 1;
+    const template = `($${i++}, $${i++}, $${i++})`
+    const values = [name, email, feedback]
+    const query = `INSERT INTO feedback (name, email, feedback) VALUES ${template}`;
+    console.log(values, query);
+
+    const client = connect();
+    client.query(query, values, (err, result) => {
+        callback(err, result);
+        client.end();
+    });
+}
+
+
 module.exports = {
     resetTable,
     addUser,
@@ -530,4 +556,5 @@ module.exports = {
     deleteSquatRecord,
     deleteBenchRecord,
     deleteDeadliftRecord,
+    insertFeedback,
 };

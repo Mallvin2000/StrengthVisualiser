@@ -1,4 +1,11 @@
+main {
+    background-color: #efe2d9;
+    /* height: 800px; */
+}
+
 .canvas-container {
+    display: block;
+    /* margin-left: 15%; */
     width: 25%;
     height: 250px;
     /*margin: 2% auto 0 auto;*/

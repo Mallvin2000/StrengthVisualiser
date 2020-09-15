@@ -39,66 +39,75 @@
         </nav>
     </header>
 
-    <div class="container-fluid">
-        <div class="inner-section">
-            <div class="user-inputs">
-                <form id="user-inputs-form" method="POST">
-                    <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label for="wc">Lift Type:</label>
-                            <select id="liftType-select" class="form-control">
-                                <option selected disabled>Choose the type of lift...</option>
-                                <option>Squat</option>
-                                <option>Bench</option>
-                                <option>Deadlift</option>
-                            </select>
-                        </div>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="inner-section col-md-5">
+                    <div class="user-inputs">
+                        <form id="user-inputs-form" method="POST">
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="wc">Lift Type:</label>
+                                    <select id="liftType-select" class="form-control">
+                                        <option selected disabled>Choose the type of lift...</option>
+                                        <option>Squat</option>
+                                        <option>Bench</option>
+                                        <option>Deadlift</option>
+                                    </select>
+                                </div>
+                            </div>
+    
+                            <div class="radio-container">
+                                <div class="radio-label">
+                                    <label class="form-check-label">
+                                        Filter:
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="filterOption" id="exampleRadios1"
+                                        value="option1">
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        Sort by a year
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="filterOption" id="exampleRadios2"
+                                        value="option2">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        Sort between years
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="filterOption" id="exampleRadios3"
+                                        value="option3" checked>
+                                    <label class="form-check-label" for="exampleRadios3">
+                                        None
+                                    </label>
+                                </div>
+    
+                                <div id="filter-inputs">
+    
+                                </div>
+                            </div>
+    
+    
+                            <button id="new-log-button" type="submit" class="btn btn-primary">View</button>
+                        </form>
                     </div>
-
-                    <div class="radio-container">
-                        <div class="radio-label">
-                            <label class="form-check-label">
-                                Filter:
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="exampleRadios1"
-                                value="option1" >
-                            <label class="form-check-label" for="exampleRadios1">
-                                Sort by a year
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="exampleRadios2"
-                                value="option2">
-                            <label class="form-check-label" for="exampleRadios2">
-                                Sort between years
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="filterOption" id="exampleRadios3"
-                                value="option3" checked> 
-                            <label class="form-check-label" for="exampleRadios3">
-                                None
-                            </label>
-                        </div>
-
-                        <div id="filter-inputs">
-
-                        </div>
-                    </div>
-
-
-                    <button id="new-log-button" type="submit" class="btn btn-primary">View</button>
-                </form>
+                </div>
+                <div class="canvas-container col-md-6 mt-4"  style="height:70vh; width:80vw">
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
+           
+
+
         </div>
 
+       
+    </main>
 
-    </div>
 
-    <div class="canvas-container">
-        <canvas id="myChart" width="400" height="400"></canvas>
 
 </body>
 
