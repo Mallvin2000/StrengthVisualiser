@@ -73,13 +73,14 @@ app.post('/login', (req, res) => {
   //console.log("login received");
   var username = req.body.username;
   var password = req.body.password;
-  console.log(username, password);
+  //console.log(username, password);
 
   database.login(username, password, (error, result) => {
     if (error) {
       res.status(500).send({ "Error": error.detail });
 
     } else {
+      //console.log(result);
       res.json(result);
     }
     //console.log(result);
@@ -438,6 +439,23 @@ app.delete('/deadlift/delete/:id', verifyToken, (req, res) => {
     }
   });
 
+});
+
+
+app.post('/insert/feedback', (req, res) => {
+  //console.log("Squat has received");
+  var name = req.body.name;
+  var email = req.body.email;
+  var feedback = req.body.feedback;
+
+  database.insertFeedback(name, email, feedback, (err, result) => {
+    if (err) {
+      res.status(500).send({ "Error": err.detail });
+
+    } else {
+      res.json({ result: "Successfully added feedback" });
+    }
+  });
 });
 
 
