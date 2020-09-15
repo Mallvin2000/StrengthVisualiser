@@ -33,23 +33,67 @@ function registerResetInputsForm() {
     $('#reset-form').submit(resetUserInputs);
 }
 
+
+
+function compare(a, b) {
+    const bandA = a.date;
+    const bandB = b.date;
+  
+    let comparison = 0;
+    if (bandA > bandB) {
+      comparison = 1;
+    } else if (bandA < bandB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+
+
 function populateGraph(event) {
     //chart creation
     event.preventDefault();
-    const ctx = document.getElementById('myChart').getContext('2d');
 
+    var xAxisTemp = [];
+    var yAxisTemp = [];
+    for (let i = 0; i < xAxis.length; i++) {
+        xAxisTemp.push({
+            date: xAxis[i]
+        });
+
+        yAxisTemp.push({
+            date: yAxis[i]
+        });
+    }
+    
+    xAxisTemp.sort(compare);
+    yAxisTemp.sort(compare);
+
+    var xAxisSorted = [];
+    var yAxisSorted = [];
+    for (let i = 0; i < xAxisTemp.length; i++) {
+        xAxisSorted.push(xAxisTemp[i].date);
+        yAxisSorted.push(yAxisTemp[i].date);
+        
+    }
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    
     const myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: xAxis,
+            labels: xAxisSorted,
             datasets: [{
                 label: 'Squat weight progression',
-                data: yAxis,
+                data: yAxisSorted,
                 fill: false,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
             }]
+        },
+        options: {
+            responsive: true
         }
     });
 }
@@ -112,19 +156,6 @@ function registerModal() {
 }
 
 
-
-function compare(a, b) {
-    const bandA = a.date;
-    const bandB = b.date;
-  
-    let comparison = 0;
-    if (bandA > bandB) {
-      comparison = 1;
-    } else if (bandA < bandB) {
-      comparison = -1;
-    }
-    return comparison;
-  }
 
 
 

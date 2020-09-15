@@ -2,6 +2,7 @@
   main {
     padding-top: 30px;
     background-color: #efe2d9;
+    height: 1000px;
   }
 
 
@@ -9,7 +10,7 @@
 .canvas-container {
     width: 25%;
     height: 250px;
-    /*margin: 2% auto 0 auto;*/
+    margin: 2% auto 0 auto;
 }
 
 .submit {
