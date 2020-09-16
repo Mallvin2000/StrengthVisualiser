@@ -8,7 +8,7 @@ function sendDataToBackend(event) {
     $("#txt_textArea").val()); */
 
     var settings = {
-        "url": "http://localhost:3000/insert/feedback",
+        "url": "https://strength-visualiser.herokuapp.com/insert/feedback",
         "method": "POST",
         "timeout": 0,
         "headers": {

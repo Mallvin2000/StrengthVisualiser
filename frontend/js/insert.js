@@ -174,7 +174,7 @@ function sendDataToBackendSquat(event) {
     event.preventDefault();
 
     var settings = {
-        "url": "http://localhost:3000/insert/squat-log",
+        "url": "https://strength-visualiser.herokuapp.com/insert/squat-log",//http://localhost:3000/insert/squat-log
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -201,7 +201,7 @@ function sendDataToBackendBench(event) {
     event.preventDefault();
 
     var settings = {
-        "url": "http://localhost:3000/insert/bench-log",
+        "url": "https://strength-visualiser.herokuapp.com/insert/bench-log",
         "method": "POST",
         "timeout": 0,
         "headers": {
@@ -229,7 +229,7 @@ function sendDataToBackendDeadlift(event) {
     event.preventDefault();
 
     var settings = {
-        "url": "http://localhost:3000/insert/deadlift-log",
+        "url": "https://strength-visualiser.herokuapp.com/insert/deadlift-log",
         "method": "POST",
         "timeout": 0,
         "headers": {

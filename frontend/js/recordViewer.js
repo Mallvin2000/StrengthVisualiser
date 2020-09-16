@@ -121,11 +121,11 @@ function updateDataInBackend(event) {
     var liftType = $("#liftType-select option:selected").val()
     var url = "";
     if (liftType == "Squat") {
-        url = "http://localhost:3000/squat/update"
+        url = "https://strength-visualiser.herokuapp.com/squat/update"
     } else if (liftType == "Bench") {
-        url = "http://localhost:3000/bench/update"
+        url = "https://strength-visualiser.herokuapp.com/bench/update"
     } else if (liftType == "Deadlift") {
-        url = "http://localhost:3000/deadlift/update"
+        url = "https://strength-visualiser.herokuapp.com/deadlift/update"
     }
 
     var settings = {
@@ -181,7 +181,7 @@ function populateOptions(data) {
                     console.log("deleting" + data[i].squatid);
 
                     var settings = {
-                        "url": "http://localhost:3000/squat/delete/" + data[i].squatid,
+                        "url": "https://strength-visualiser.herokuapp.com/squat/delete/" + data[i].squatid,
                         "method": "DELETE",
                         "timeout": 0,
                         "headers": {
@@ -206,7 +206,7 @@ function populateOptions(data) {
             $('#update-' + data[i].squatid).on("click", (event) => {
                 console.log("Clicked");
                 var settings = {//contains all the parameters like postman
-                    "url": "http://localhost:3000/get/all/squat/" + data[i].squatid,
+                    "url": "https://strength-visualiser.herokuapp.com/get/all/squat/" + data[i].squatid,
                     "method": "GET",
                     "timeout": 0,
                     "headers": {
@@ -501,7 +501,7 @@ function populateOptions(data) {
                     console.log("deleting" + data[i].benchid);
 
                     var settings = {
-                        "url": "http://localhost:3000/bench/delete/" + data[i].benchid,
+                        "url": "https://strength-visualiser.herokuapp.com/bench/delete/" + data[i].benchid,
                         "method": "DELETE",
                         "timeout": 0,
                         "headers": {
@@ -526,7 +526,7 @@ function populateOptions(data) {
             $('#update-' + data[i].benchid).on("click", (event) => {
                 console.log("Clicked");
                 var settings = {//contains all the parameters like postman
-                    "url": "http://localhost:3000/get/all/bench/" + data[i].benchid,
+                    "url": "https://strength-visualiser.herokuapp.com/get/all/bench/" + data[i].benchid,
                     "method": "GET",
                     "timeout": 0,
                     "headers": {
@@ -824,7 +824,7 @@ function populateOptions(data) {
                     console.log("deleting" + data[i].deadliftid);
 
                     var settings = {
-                        "url": "http://localhost:3000/deadlift/delete/" + data[i].deadliftid,
+                        "url": "https://strength-visualiser.herokuapp.com/deadlift/delete/" + data[i].deadliftid,
                         "method": "DELETE",
                         "timeout": 0,
                         "headers": {
@@ -849,7 +849,7 @@ function populateOptions(data) {
             $('#update-' + data[i].deadliftid).on("click", (event) => {
                 console.log("Clicked");
                 var settings = {//contains all the parameters like postman
-                    "url": "http://localhost:3000/get/all/deadlift/" + data[i].deadliftid,
+                    "url": "https://strength-visualiser.herokuapp.com/get/all/deadlift/" + data[i].deadliftid,
                     "method": "GET",
                     "timeout": 0,
                     "headers": {
@@ -1193,11 +1193,11 @@ function getUserDataFromBackend() {
     var url = "";
     //console.log(liftType);
     if (liftType == "Squat") {
-        url = "http://localhost:3000/get/all/squat?year=" + yearFilter + "&month=" + monthFilter + "&limit=" + paginationQuery.limit + "&offset=" + paginationQuery.offset;
+        url = "https://strength-visualiser.herokuapp.com/get/all/squat?year=" + yearFilter + "&month=" + monthFilter + "&limit=" + paginationQuery.limit + "&offset=" + paginationQuery.offset;
     } else if (liftType == "Bench") {
-        url = "http://localhost:3000/get/all/bench?year=" + yearFilter + "&month=" + monthFilter;
+        url = "https://strength-visualiser.herokuapp.com/get/all/bench?year=" + yearFilter + "&month=" + monthFilter;
     } else if (liftType == "Deadlift") {
-        url = "http://localhost:3000/get/all/deadlift?year=" + yearFilter + "&month=" + monthFilter;
+        url = "https://strength-visualiser.herokuapp.com/get/all/deadlift?year=" + yearFilter + "&month=" + monthFilter;
     }
     //console.log(url);
 

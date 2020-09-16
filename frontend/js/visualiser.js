@@ -56,14 +56,14 @@ function getLiftDataFromBackend(event) {
 
 
     if (liftType == "Squat") {
-        var url = "http://localhost:3000/get/squat";
+        var url = "https://strength-visualiser.herokuapp.com/get/squat";
         if (filterType == "option1" || filterType == "option2") {
             var filterData = getFilterData(filterType);
             //console.log(filterData);
             if (filterType == "option1") {
-                url = "http://localhost:3000/get/squat?startYear=" + filterData;
+                url = "https://strength-visualiser.herokuapp.com/get/squat?startYear=" + filterData;
             } else if (filterType == "option2") {
-                url = "http://localhost:3000/get/squat?startYear=" + filterData[0] + "&endYear=" + filterData[1];
+                url = "https://strength-visualiser.herokuapp.com/get/squat?startYear=" + filterData[0] + "&endYear=" + filterData[1];
             }
         }
 
@@ -91,14 +91,14 @@ function getLiftDataFromBackend(event) {
 
         });
     } else if (liftType == "Bench") {
-        var url = "http://localhost:3000/get/bench";
+        var url = "https://strength-visualiser.herokuapp.com/get/bench";
         if (filterType == "option1" || filterType == "option2") {
             var filterData = getFilterData(filterType);
             //console.log(filterData);
             if (filterType == "option1") {
-                url = "http://localhost:3000/get/bench?startYear=" + filterData;
+                url = "https://strength-visualiser.herokuapp.com/get/bench?startYear=" + filterData;
             } else if (filterType == "option2") {
-                url = "http://localhost:3000/get/bench?startYear=" + filterData[0] + "&endYear=" + filterData[1];
+                url = "https://strength-visualiser.herokuapp.com/get/bench?startYear=" + filterData[0] + "&endYear=" + filterData[1];
             }
             console.log(url);
         }
@@ -127,14 +127,14 @@ function getLiftDataFromBackend(event) {
 
         });
     } else if (liftType == "Deadlift") {
-        var url = "http://localhost:3000/get/deadlift";
+        var url = "https://strength-visualiser.herokuapp.com/get/deadlift";
         if (filterType == "option1" || filterType == "option2") {
             var filterData = getFilterData(filterType);
             //console.log(filterData);
             if (filterType == "option1") {
-                url = "http://localhost:3000/get/deadlift?startYear=" + filterData;
+                url = "https://strength-visualiser.herokuapp.com/get/deadlift?startYear=" + filterData;
             } else if (filterType == "option2") {
-                url = "http://localhost:3000/get/deadlift?startYear=" + filterData[0] + "&endYear=" + filterData[1];
+                url = "https://strength-visualiser.herokuapp.com/get/deadlift?startYear=" + filterData[0] + "&endYear=" + filterData[1];
             }
         }
 
