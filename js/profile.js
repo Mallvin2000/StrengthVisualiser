@@ -2,7 +2,7 @@ function getUserDataFromBackend() {
     //event.preventDefault(); dont need to as no form is being submitted
 
     var settings = {
-        "url": "http://localhost:3000/get/user/data",
+        "url": "https://strength-visualiser.herokuapp.com/get/user/data",
         "method": "GET",
         "timeout": 0,
         "headers": {
@@ -48,7 +48,7 @@ function sendDataToBackend(event) {
 
         if (password.length == 0 || password == "") {//get the original password to send back. not the most efficient way
             var settings = {
-                "url": "http://localhost:3000/get/user/data",
+                "url": "https://strength-visualiser.herokuapp.com/get/user/data",
                 "method": "GET",
                 "timeout": 0,
                 "headers": {
@@ -61,7 +61,7 @@ function sendDataToBackend(event) {
                 //console.log(response);
                 password = response[0].password;
                 var settings = {
-                    "url": "http://localhost:3000/update/user",
+                    "url": "https://strength-visualiser.herokuapp.com/update/user",
                     "method": "PUT",
                     "timeout": 0,
                     "headers": {
@@ -85,7 +85,7 @@ function sendDataToBackend(event) {
 
         } else {
             var settings = {
-                "url": "http://localhost:3000/update/user",
+                "url": "https://strength-visualiser.herokuapp.com/update/user",
                 "method": "PUT",
                 "timeout": 0,
                 "headers": {
